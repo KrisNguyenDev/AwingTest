@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AppBar, Box, Container, Grid, Card, Tab, Tabs, Toolbar, Typography, TextField, Button } from '@mui/material'
+import { AppBar, Box, Container, Card, Tab, Tabs, Toolbar, Typography, TextField, Button } from '@mui/material'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -36,59 +36,62 @@ export default function Demo() {
           <Typography variant="h6">AWING TEST</Typography>
         </Toolbar>
       </AppBar>
-      <Container maxWidth="xl">
-        <Grid container spacing={2} sx={{ marginTop: '16px' }}>
-          <Grid item xs={12}>
-            <Card sx={{ width: '100%', typography: 'body1' }}>
-              <Tabs value={value} onChange={handleChange} sx={{ padding: '16px' }}>
-                <Tab label="Thông tin" value={0} />
-                <Tab label="Chiến dịch con" value={1} />
-              </Tabs>
-              {value === 0 && (
-                <Box sx={{ padding: '16px' }}>
-                  <form onSubmit={handleSubmit(onSubmit)} className="block">
-                    <Controller
-                      name="campaignName"
-                      control={control}
-                      render={({ field }) => (
-                        <Box>
-                          <TextField
-                            sx={{ width: '100%' }}
-                            {...field}
-                            error={errors.campaignName?.message ? true : false}
-                            helperText={errors.campaignName?.message}
-                            id="standard-basic"
-                            label="Tên chiến dịch"
-                            variant="standard"
-                          />
-                        </Box>
-                      )}
-                    />
-                    <Controller
-                      name="description"
-                      control={control}
-                      render={({ field }) => (
-                        <Box>
-                          <TextField
-                            sx={{ width: '100%' }}
-                            {...field}
-                            id="standard-basic"
-                            label="Mô tả"
-                            variant="standard"
-                          />
-                        </Box>
-                      )}
-                    />
-                    <Button type="submit" variant="contained">
-                      SUBMIT
-                    </Button>
-                  </form>
-                </Box>
-              )}
-              {value === 1 && <Box sx={{ padding: '16px' }}></Box>}
-            </Card>
-          </Grid>
-        </Grid>
+      <Container maxWidth="xl" sx={{ marginTop: '20px' }}>
+        <Card sx={{ typography: 'body1' }}>
+          <Tabs value={value} onChange={handleChange} sx={{ padding: '16px' }}>
+            <Tab label="Thông tin" value={0} />
+            <Tab label="Chiến dịch con" value={1} />
+          </Tabs>
+          {value === 0 && (
+            <Box sx={{ padding: '16px' }}>
+              <form onSubmit={handleSubmit(onSubmit)} className="block">
+                <Controller
+                  name="campaignName"
+                  control={control}
+                  render={({ field }) => (
+                    <Box>
+                      <TextField
+                        sx={{ width: '100%' }}
+                        {...field}
+                        error={errors.campaignName?.message ? true : false}
+                        helperText={errors.campaignName?.message}
+                        id="standard-basic"
+                        label="Tên chiến dịch"
+                        variant="standard"
+                      />
+                    </Box>
+                  )}
+                />
+                <Controller
+                  name="description"
+                  control={control}
+                  render={({ field }) => (
+                    <Box>
+                      <TextField
+                        sx={{ width: '100%' }}
+                        {...field}
+                        id="standard-basic"
+                        label="Mô tả"
+                        variant="standard"
+                      />
+                    </Box>
+                  )}
+                />
+              </form>
+            </Box>
+          )}
+          {value === 1 && (
+            <Box sx={{ padding: '16px' }}>
+              <Button
+                sx={{ marginTop: '12px', borderRadius: '50%', width: '60px', height: '60px' }}
+                type="submit"
+                variant="outlined"
+              >
+                <Typography variant="h5">+</Typography>
+              </Button>
+            </Box>
+          )}
+        </Card>
       </Container>
     </>
   )
