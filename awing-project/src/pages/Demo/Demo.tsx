@@ -1,22 +1,16 @@
+import { InfoSchema, infoSchema } from '@/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AppBar, Box, Container, Card, Tab, Tabs, Toolbar, Typography, TextField, Button } from '@mui/material'
 import { useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
-
-const schema = yup.object({
-  campaignName: yup.string().required('Name is required'),
-  description: yup.string().email('Invalid email format'),
-})
-export type Schema = yup.InferType<typeof schema>
+import { Controller, useForm } from 'react-hook-form'
 
 export default function Demo() {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<Schema>({
-    resolver: yupResolver(schema),
+  } = useForm<InfoSchema>({
+    resolver: yupResolver(infoSchema),
   })
   const [value, setValue] = useState(0)
 
@@ -25,7 +19,7 @@ export default function Demo() {
     console.log(event)
   }
 
-  const onSubmit: SubmitHandler<Schema> = (data) => {
+  const onSubmit = (data: InfoSchema) => {
     console.log(data)
   }
 
@@ -73,10 +67,15 @@ export default function Demo() {
                         id="standard-basic"
                         label="Mô tả"
                         variant="standard"
+                        error={errors.description?.message ? true : false}
+                        helperText={errors.description?.message}
                       />
                     </Box>
                   )}
                 />
+                <Button sx={{ marginTop: '40px' }} type="submit" variant="outlined">
+                  Submit
+                </Button>
               </form>
             </Box>
           )}
